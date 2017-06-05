@@ -1,0 +1,35 @@
+{
+  "name": "serverless-plugin-jsonenv",
+  "version": "1.0.0-rc.1",
+  "description": "Merge a JSON file with your provider or functions environment objects.",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "node_modules/.bin/standard src/**",
+    "lint:fix": "node_modules/.bin/standard --fix src/**"
+  },
+  "author": "Gonçalo Neves",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FidelLimited/serverless-plugin-jsonenv.git"
+  },
+  "keywords": [
+    "serverless plugin json environment",
+    "serverless plugin json variables",
+    "serverless plugin s3 variables",
+    "serverless s3 variables",
+    "serverless s3 environment",
+    "serverless plugin",
+    "aws serverless"
+  ],
+  "bugs": {
+    "url": "https://github.com/FidelLimited/serverless-plugin-jsonenv/issues"
+  },
+  "homepage": "https://github.com/FidelLimited/serverless-plugin-jsonenv#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0"
+  },
+  "devDependencies": {
+    "standard": "^10.0.2"
+  }
+}
