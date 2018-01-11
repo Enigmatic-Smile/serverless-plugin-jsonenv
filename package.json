@@ -1,6 +1,6 @@
 {
   "name": "serverless-plugin-jsonenv",
-  "version": "1.0.0-rc.1",
+  "version": "1.1.0-rc.1",
   "description": "Merge a JSON file with your provider or functions environment objects.",
   "main": "src/index.js",
   "scripts": {
