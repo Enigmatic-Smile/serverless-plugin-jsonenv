@@ -45,17 +45,8 @@ class JSONEnv {
    * @return {Promise}
    * */
   mergeEnvironments () {
-    /** Provider JSON environment variables exist */
-    if (this.serverless.service.provider.environmentJSON) {
-      /** Initialize environment object */
-      this.serverless.service.provider.environment = this.serverless.service.provider.environment || {}
-
-      /** Merge provider JSON environment variables */
-      this.merge(
-        this.serverless.service.provider.environment,
-        this.serverless.service.provider.environmentJSON
-      )
-    }
+    /** Merge all environment JSON */
+    this.mergeAllJSON(this.serverless.service.provider)
 
     /** Get functions */
     const allFunctions = this.serverless.service.getAllFunctions()
@@ -64,15 +55,9 @@ class JSONEnv {
     return BbPromise.map(allFunctions, (functionName) => {
       const functionObject = this.serverless.service.getFunction(functionName)
 
-      /** Function JSON environment variables exist */
-      if (functionObject.environmentJSON) {
-        /** Initialize environment object */
-        functionObject.environment = functionObject.environment || {}
-        this.merge(
-          functionObject.environment,
-          functionObject.environmentJSON
-        )
-      }
+      /** Merge all environment JSON */
+      this.mergeAllJSON(functionObject)
+
       return functionObject
     })
   }
@@ -87,16 +72,42 @@ class JSONEnv {
    * */
   merge (environment, environmentJSON) {
     if (environmentJSON && (typeof environment !== 'object' || environment === null)) {
-      throw new this.serverless.classes.Error('JSON Environment: environment must be an object');
+      throw new this.serverless.classes.Error('JSON Environment: environment must be an object')
     }
 
     try {
       Object.assign(environment, JSON.parse(environmentJSON))
     } catch (error) {
-      throw new this.serverless.classes.Error('JSON Environment: JSON string is not valid');
+      throw new this.serverless.classes.Error('JSON Environment: JSON string is not valid')
     }
 
     return environment
+  }
+
+  /**
+   * @description Merge All JSON Environment
+   *
+   * @param {!Object} provider - Serverless Provider
+   *
+   * @return {*} Merged environment
+   * */
+  mergeAllJSON (provider) {
+    /** Loop through provider keys */
+    const keys = Object.keys(provider)
+    keys.forEach((key) => {
+      /** Merge provider JSON environment variables */
+      if (key.indexOf('environmentJSON') !== -1) {
+        /** Initialize environment object */
+        provider.environment = provider.environment || {}
+
+        this.merge(
+          provider.environment,
+          provider[key]
+        )
+      }
+    })
+
+    return provider.environment
   }
 }
 
