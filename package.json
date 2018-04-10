@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/FidelLimited/serverless-plugin-jsonenv/issues"
   },
-  "homepage": "https://github.com/FidelLimited/serverless-plugin-jsonenv#readme",
+  "homepage": "https://github.com/FidelLimited/serverless-plugin-jsonenv",
   "dependencies": {
     "bluebird": "^3.5.0"
   },
